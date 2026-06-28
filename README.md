@@ -1,163 +1,400 @@
-# Sentiment Analysis using NLP (Classical Machine Learning)
+# Sentiment Analysis using Classical NLP & Machine Learning
 
- Project Overview
+![Python](https://img.shields.io/badge/Python-3.10-blue)
+![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-ML-orange)
+![NLTK](https://img.shields.io/badge/NLTK-NLP-green)
+![Gensim](https://img.shields.io/badge/Gensim-Word2Vec-red)
+![License](https://img.shields.io/badge/License-MIT-brightgreen)
 
-This project implements an **end-to-end sentiment analysis system** using **classical Natural Language Processing (NLP) and Machine Learning techniques**. The goal is to classify **opinion-based text reviews** into **Positive** or **Negative** sentiment.
+## Overview
 
-The project was developed with a strong focus on:
+This project presents a complete **Sentiment Analysis pipeline** built using **Classical Natural Language Processing (NLP)** and **Machine Learning** techniques.
 
-* Correct NLP preprocessing
-* Proper feature–model pairing
-* Error analysis and iterative improvement
-* Honest handling of model limitations
+The objective is to classify user reviews into **Positive** or **Negative** sentiment by implementing a complete NLP workflow—from raw text preprocessing to feature extraction, model training, evaluation, and deployment-ready prediction.
 
-Rather than relying on deep learning, this project demonstrates a **solid foundational understanding of NLP pipelines**, which is highly valued for internships and entry-level ML roles.
-
-
- Concepts & Techniques Covered
-
-### 1. Natural Language Processing (NLP)
-
-* Text cleaning and normalization
-* Tokenization
-* Stopword removal (with **negation preservation**)
-* Lemmatization
-* Noise removal (HTML tags, URLs, special characters)
-
-### 2. Feature Extraction Techniques
-
-* **Bag of Words (BoW)**
-* **TF-IDF (Term Frequency–Inverse Document Frequency)**
-* **Word2Vec (custom-trained embeddings)**
-
-### 3. Machine Learning Models
-
-* **Multinomial Naive Bayes** (for BoW and TF-IDF)
-* **Logistic Regression** (for Word2Vec embeddings)
-
-### 4. Model Evaluation
-
-* Train–test split
-* Accuracy
-* Precision, Recall, F1-score
-* Confusion matrix
-* Class imbalance analysis
-
-### 5. Model Persistence
-
-* Saving and loading trained models using `joblib`
-* Reusable inference pipeline
+Unlike transformer-based approaches, this project focuses on building a strong understanding of traditional NLP methods that remain highly relevant for machine learning interviews, academic projects, and production systems with limited computational resources.
 
 ---
 
- Project Pipeline
+## Features
 
-1. **Raw Text Input**
-2. **Text Preprocessing**
-
-   * Lowercasing
-   * HTML and URL removal
-   * Special character removal
-   * Stopword removal (negation words retained)
-   * Lemmatization
-3. **Feature Extraction**
-
-   * BoW / TF-IDF / Word2Vec
-4. **Model Training**
-
-   * MultinomialNB or Logistic Regression
-5. **Evaluation**
-
-   * Accuracy, F1-score, confusion matrix
-6. **Prediction / Inference**
+- Complete end-to-end NLP pipeline
+- Advanced text preprocessing
+- Multiple feature extraction techniques
+- Comparison of different machine learning algorithms
+- Performance evaluation using multiple metrics
+- Saved model for future inference
+- Easily extendable for new datasets
 
 ---
 
- Experiments & Results
+# Project Workflow
 
-### Word2Vec + Logistic Regression
-
-* **Training set shape:** (9600, 100)
-* **Test set shape:** (2400, 100)
-* **Accuracy:** ~70%
-
-#### Classification Report
-
-| Class            | Precision | Recall   | F1-Score | Support |
-| ---------------- | --------- | -------- | -------- | ------- |
-| Negative (0)     | 0.54      | 0.74     | 0.62     | 803     |
-| Positive (1)     | 0.84      | 0.68     | 0.75     | 1597    |
-| **Weighted Avg** | **0.74**  | **0.70** | **0.71** | 2400    |
-
-This shows:
-
-* Strong performance on the majority class
-* Reasonable recall on the minority (negative) class
-* Realistic performance for classical NLP methods
-
----
-
- Visualizations
-
-The project includes the following evaluation visualizations:
-
-* Confusion Matrix
-* Precision vs Recall (per class)
-* Accuracy comparison across BoW, TF-IDF, and Word2Vec
-
-These plots help in understanding class imbalance and model behavior beyond raw accuracy.
-
----
-
- Correct Usage Examples
-
-### Positive Sentences
-
-* "I love this product"
-* "The service is excellent"
-* "I am very happy with the experience"
-
-### Negative Sentences
-
-* "I hate this product"
-* "The service quality is poor"
-* "This is the worst experience"
-
----
- Important Limitations
-
-This project **intentionally does NOT attempt** to solve the following:
-
-* Medical or physical condition statements (e.g., "I am not able to walk")
-* Factual or neutral sentences
-* Sarcasm or irony detection
-* Aspect-based sentiment analysis
-* Emotion classification
-
-**Reason:**
-The model is trained on **opinion-based review data**, and classical NLP techniques cannot reliably infer sentiment from non-opinion or context-heavy statements.
+```
+                    Raw Text Reviews
+                           │
+                           ▼
+                  Text Preprocessing
+                           │
+      ┌───────────────────────────────────┐
+      │ Lowercase                         │
+      │ Remove HTML                       │
+      │ Remove URLs                       │
+      │ Remove Special Characters         │
+      │ Tokenization                      │
+      │ Stopword Removal                  │
+      │ Negation Preservation             │
+      │ Lemmatization                     │
+      └───────────────────────────────────┘
+                           │
+                           ▼
+                 Feature Engineering
+          ┌──────────┬────────────┬────────────┐
+          │   BoW    │   TF-IDF   │ Word2Vec   │
+          └──────────┴────────────┴────────────┘
+                           │
+                           ▼
+               Machine Learning Models
+      ┌───────────────────────────────────────┐
+      │ Multinomial Naive Bayes               │
+      │ Logistic Regression                   │
+      └───────────────────────────────────────┘
+                           │
+                           ▼
+                    Model Evaluation
+                           │
+                           ▼
+                   Sentiment Prediction
+```
 
 ---
 
- Key Improvements Made During Development
+# Dataset
 
-* Fixed incorrect stopword removal that was deleting negation words
-* Matched classifiers correctly with feature types
-* Replaced GaussianNB with MultinomialNB for text features
-* Switched to Logistic Regression for Word2Vec embeddings
-* Retrained Word2Vec with proper vocabulary coverage
-* Ensured preprocessing consistency between training and inference
+The project uses a dataset containing customer/product reviews labelled as:
 
-These changes significantly improved prediction reliability.
+- Positive (1)
+- Negative (0)
 
- 
-Tech Stack
+Example:
 
-* Python
-* NLTK
-* Scikit-learn
-* Gensim
-* Pandas
-* Matplotlib
+| Review | Label |
+|---------|-------|
+| I absolutely love this product. | Positive |
+| Very disappointed with the quality. | Negative |
+
+---
+
+# NLP Preprocessing
+
+The following preprocessing techniques are applied before training:
+
+- Convert text to lowercase
+- Remove HTML tags
+- Remove URLs
+- Remove punctuation
+- Remove numbers
+- Remove special characters
+- Tokenization
+- Stopword removal
+- Preserve negation words (not, never, no)
+- Lemmatization
+
+These preprocessing steps improve feature quality while preserving important contextual information.
+
+---
+
+# Feature Extraction
+
+The project compares three classical text vectorization techniques.
+
+## 1. Bag of Words (BoW)
+
+Converts documents into word-frequency vectors.
+
+**Classifier**
+- Multinomial Naive Bayes
+
+---
+
+## 2. TF-IDF
+
+Measures word importance using Term Frequency-Inverse Document Frequency.
+
+**Classifier**
+- Multinomial Naive Bayes
+
+---
+
+## 3. Word2Vec
+
+Creates dense semantic word embeddings trained using Gensim.
+
+Sentence embeddings are generated by averaging word vectors.
+
+**Classifier**
+- Logistic Regression
+
+---
+
+# Machine Learning Models
+
+| Feature Extraction | Model |
+|-------------------|-----------------------------|
+| Bag of Words | Multinomial Naive Bayes |
+| TF-IDF | Multinomial Naive Bayes |
+| Word2Vec | Logistic Regression |
+
+Each model is trained and evaluated independently.
+
+---
+
+# Model Evaluation
+
+Performance is evaluated using:
+
+- Accuracy
+- Precision
+- Recall
+- F1-Score
+- Confusion Matrix
+
+---
+
+# Results
+
+## Word2Vec + Logistic Regression
+
+| Metric | Value |
+|---------|--------|
+| Training Samples | 9600 |
+| Testing Samples | 2400 |
+| Embedding Size | 100 |
+| Accuracy | ~70% |
+
+### Classification Report
+
+| Class | Precision | Recall | F1-score |
+|------|-----------|---------|-----------|
+| Negative | 0.54 | 0.74 | 0.62 |
+| Positive | 0.84 | 0.68 | 0.75 |
+
+Weighted F1 Score: **0.71**
+
+---
+
+# Visualizations
+
+The project includes:
+
+- Confusion Matrix
+- Accuracy Comparison
+- Precision vs Recall
+- Model Performance Comparison
+
+These visualizations provide deeper insights into model strengths and weaknesses beyond overall accuracy.
+
+---
+
+# Example Predictions
+
+### Positive Reviews
+
+```
+I absolutely loved this movie.
+```
+
+Prediction
+
+```
+Positive
+```
+
+---
+
+```
+The customer support was amazing.
+```
+
+Prediction
+
+```
+Positive
+```
+
+---
+
+### Negative Reviews
+
+```
+Worst purchase I've ever made.
+```
+
+Prediction
+
+```
+Negative
+```
+
+---
+
+```
+The service quality is terrible.
+```
+
+Prediction
+
+```
+Negative
+```
+
+---
+
+# Project Structure
+
+```
+Sentiment-Analysis-NLP/
+│
+├── Implementation_LSTM_ML/
+│   └── implementation.ipynb
+│
+├── Predict.py
+├── all_kindle_review.csv
+├── w2v_lr_model.pkl
+├── README.md
+├── LICENSE
+```
+
+---
+
+# Installation
+
+Clone the repository
+
+```bash
+git clone https://github.com/yourusername/Sentiment-Analysis-NLP.git
+```
+
+Move into the project directory
+
+```bash
+cd Sentiment-Analysis-NLP
+```
+
+Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+# Required Libraries
+
+```
+Python
+Pandas
+NumPy
+NLTK
+Scikit-learn
+Gensim
+Matplotlib
+Joblib
+```
+
+Install manually
+
+```bash
+pip install pandas numpy nltk scikit-learn gensim matplotlib joblib
+```
+
+---
+
+# Running the Project
+
+Train the model
+
+```bash
+python implementation.py
+```
+
+Run prediction
+
+```bash
+python Predict.py
+```
+
+---
+
+# Model Persistence
+
+The trained model is saved using Joblib.
+
+```
+w2v_lr_model.pkl
+```
+
+This enables fast inference without retraining.
+
+---
+
+# Limitations
+
+This project intentionally focuses on **opinion-based sentiment classification**.
+
+It does **not** handle:
+
+- Sarcasm detection
+- Irony
+- Emotion recognition
+- Aspect-based sentiment analysis
+- Medical diagnosis
+- Fact verification
+- Context-dependent reasoning
+
+These limitations arise because classical NLP models primarily rely on lexical features rather than deep contextual understanding.
+
+---
+
+# Key Improvements During Development
+
+Throughout development, several refinements were made to improve model reliability and prediction quality:
+
+- Preserved negation words during stopword removal
+- Applied feature-specific classifiers (e.g., MultinomialNB for sparse vectors, Logistic Regression for Word2Vec embeddings)
+- Replaced Gaussian Naive Bayes with Multinomial Naive Bayes for text classification
+- Retrained Word2Vec embeddings with improved vocabulary coverage
+- Ensured identical preprocessing during both training and inference
+- Performed iterative error analysis to identify and correct misclassifications
+
+These improvements enhanced the overall robustness and consistency of the sentiment analysis pipeline.
+
+---
+
+# Future Improvements
+
+- BERT-based sentiment analysis
+- RoBERTa fine-tuning
+- LSTM implementation
+- Attention mechanisms
+- Multi-class sentiment classification
+- Emotion detection
+- Aspect-based sentiment analysis
+- Web application using Flask or Streamlit
+- REST API deployment
+- Docker support
+
+---
+
+# Tech Stack
+
+- Python
+- Scikit-learn
+- NLTK
+- Gensim
+- Pandas
+- NumPy
+- Matplotlib
+- Joblib
 
 ---
